@@ -1,0 +1,24 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=125)
+    content = models.TextField()
+    published_date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # def __str__(self):
+    #     return self.title
+
+
+class Rating(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.PositiveIntegerField()
+
+    # class SuperKey:
+    #     key = ['post', 'user']
+
+    # def __str__(self):
+    #     return f"score data for {self.post.title} given by {self.user.username}"
